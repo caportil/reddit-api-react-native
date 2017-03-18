@@ -40,7 +40,7 @@ class Home extends React.Component {
   componentWillMount() {
     let self = this;
     console.log('about to mount; self.props:', self.props);
-    // this.props.dispatch(this.getAPIdata());
+    this.props.dispatch(this.getAPIdata());
   }
 
   // componentDidMount() {
@@ -52,16 +52,17 @@ class Home extends React.Component {
   }
 
   mapTitles() {
-    // console.log('mapTitles running', store.getState())
-    this.props.getState().lists.forEach((child, idx) => {
-      console.log(child);
-      return (
-        <div>
-          <div>{`${idx+1}: ${child.title}`}</div>
-        </div>
-      )
-    })
+    console.log('mapTitles running...')
+    return (
+      this.props.lists.map((child, idx) => {
+        console.log('idx:', idx, 'and child:', child);
+        return (
+          <Text>{`${idx+1}: ${child.title}`}</Text>
+        )
+      })
+    )
   }
+
   render() {
     let self = this;
     console.log('Test log');
@@ -69,6 +70,7 @@ class Home extends React.Component {
       <View >
         <Text>Reddit API React Native!</Text>
         <Text>Fetched Lists Below:</Text>
+        {self.mapTitles()}
       </View>
     );
   }

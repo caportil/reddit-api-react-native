@@ -4,6 +4,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import axios from 'axios';
 import { connect, Provider } from 'react-redux';
 import Home from './Home';
+import thunk from 'redux-thunk';
 // import store from './Store'
 
 const listReducer = (state = [], action) => {
@@ -17,7 +18,9 @@ const reducers = combineReducers({
   lists: listReducer,
 });
 
-const store = createStore(reducers);
+const middleware = applyMiddleware(thunk);
+
+const store = createStore(reducers, middleware);
 
 // store.subscribe(() => console.log('store has been changed; new store:', store.getState()));
 
@@ -79,7 +82,7 @@ export default class App extends React.Component {
   // }
   render() {
     let self = this;
-    console.log('Test log');
+    console.log('Test logz');
     return (
       <Provider store={store}>
         <Home />
