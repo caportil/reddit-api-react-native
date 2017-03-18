@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
 import axios from 'axios';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 // import Store from './Store';
 
 class Home extends React.Component {
@@ -32,20 +32,11 @@ class Home extends React.Component {
     }
   }
 
-  // componentWillMount() {
-  //   console.log('about to mount');
-  //   // this.props.dispatch(getAPIdata());
-  // }
-
   componentWillMount() {
     let self = this;
     console.log('about to mount; self.props:', self.props);
     this.props.dispatch(this.getAPIdata());
   }
-
-  // componentDidMount() {
-  //   console.log('mounted... props store lists:', this.props.lists, 'and store.getState():', store.getState())
-  // }
 
   componentDidMount() {
     console.log('Finished mounting');
@@ -57,7 +48,11 @@ class Home extends React.Component {
       this.props.lists.map((child, idx) => {
         console.log('idx:', idx, 'and child:', child);
         return (
-          <Text>{`${idx+1}: ${child.title}`}</Text>
+          <View>
+            <Text>{`${idx+1}: ${child.title}`}</Text>
+            <Image source={{uri: child.thumbnail}} style={{height: 50, width: 50}}/>
+            <Text>{`\n`}</Text>
+          </View>
         )
       })
     )
@@ -67,11 +62,11 @@ class Home extends React.Component {
     let self = this;
     console.log('Test log');
     return (
-      <View >
+      <ScrollView >
         <Text>Reddit API React Native!</Text>
         <Text>Fetched Lists Below:</Text>
         {self.mapTitles()}
-      </View>
+      </ScrollView>
     );
   }
 }
