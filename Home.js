@@ -1,11 +1,25 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, RefreshControl } from 'react-native';
 import ListItem from './ListItem';
 // import Store from './Store';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+    };
+  }
+
+  _onRefresh() {
+    this.setState({refreshing: true});
+    fetchData().then(() => {
+      this.setState({refreshing: false});
+    });
+  }
+
   getAPIdata() {
     return function(dispatch) {
       axios.get('https://www.reddit.com/.json').then(res => {
@@ -69,7 +83,14 @@ class Home extends React.Component {
     let self = this;
     console.log('Test log');
     return (
-      <ScrollView >
+      <ScrollView 
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }
+      >
         <Text>Reddit API React Native!</Text>
         <Text>Fetched Lists Below:</Text>
         {self.mapTitles()}
