@@ -50,7 +50,14 @@ class Home extends React.Component {
         return (
           <View>
             <Text>{`${idx+1}: ${child.title}`}</Text>
-            <Image source={{uri: child.thumbnail}} style={{height: 50, width: 50}}/>
+            {child.thumbnail === 'default' ?
+              <Image source={{uri: 'http://i-cdn.phonearena.com/images/article/70867-image/Best-Reddit-clients-for-Android.jpg'}} />
+              :
+              <Image source={{uri: child.thumbnail}} style={{height: 50, width: 50}}/>
+            }
+            <Text>{`upvotes: ${child.ups}\ncomments: ${child.num_comments}`}</Text>
+            <Text>{`submitted by ${child.author} to ${child.subreddit_name_prefixed}`}</Text>
+            <Text>{`${new Date(child.created)}`}</Text>
             <Text>{`\n`}</Text>
           </View>
         )
