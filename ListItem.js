@@ -1,10 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-import axios from 'axios';
 import { connect, Provider } from 'react-redux';
-import Home from './Home';
-import thunk from 'redux-thunk';
 
 export default props => {
   return (
