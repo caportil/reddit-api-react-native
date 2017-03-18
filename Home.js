@@ -2,6 +2,7 @@ import React from 'react';
 import { connect, Provider } from 'react-redux';
 import axios from 'axios';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import ListItem from './ListItem';
 // import Store from './Store';
 
 class Home extends React.Component {
@@ -48,18 +49,17 @@ class Home extends React.Component {
       this.props.lists.map((child, idx) => {
         console.log('idx:', idx, 'and child:', child);
         return (
-          <View>
-            <Text>{`${idx+1}: ${child.title}`}</Text>
-            {child.thumbnail === 'default' ?
-              <Image source={{uri: 'http://i-cdn.phonearena.com/images/article/70867-image/Best-Reddit-clients-for-Android.jpg'}} />
-              :
-              <Image source={{uri: child.thumbnail}} style={{height: 50, width: 50}}/>
-            }
-            <Text>{`upvotes: ${child.ups}\ncomments: ${child.num_comments}`}</Text>
-            <Text>{`submitted by ${child.author} to ${child.subreddit_name_prefixed}`}</Text>
-            <Text>{`${new Date(child.created)}`}</Text>
-            <Text>{`\n`}</Text>
-          </View>
+          <ListItem
+            key={`ListItem${idx}`}
+            idx={idx}
+            title={child.title}
+            thumbnail={child.thumbnail}
+            ups={child.ups}
+            num_comments={child.num_comments}
+            author={child.author}
+            created={child.created}
+            subreddit_name_prefixed={child.subreddit_name_prefixed}
+          ></ListItem>
         )
       })
     )
