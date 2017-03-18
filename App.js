@@ -9,7 +9,11 @@ import thunk from 'redux-thunk';
 
 const listReducer = (state = [], action) => {
   if (action.type === 'ADD_LIST') {
-    state = state.concat([action.payload])
+    // state = state.concat([action.payload]);
+
+    //overwrite existing values instead of appending to end (for refresh purposes)
+    let index = action.index;
+    state = state.slice(0, index).concat([action.payload]).concat(state.slice(index + 1));
   }
   return state;
 };

@@ -15,15 +15,15 @@ class Home extends React.Component {
 
   _onRefresh() {
     this.setState({refreshing: true});
-    fetchData().then(() => {
-      this.setState({refreshing: false});
-    });
+    this.props.dispatch(this.getAPIdata())
+    // .then(() => this.setState({refreshing: false}););
   }
 
   getAPIdata() {
+    let self = this;
     return function(dispatch) {
       axios.get('https://www.reddit.com/.json').then(res => {
-        res.data.data.children.forEach(child => dispatch({type: 'ADD_LIST', payload: {
+        res.data.data.children.forEach((child, i) => dispatch({type: 'ADD_LIST', index: i, payload: {
           title: child.data.title,
           author: child.data.author,
           created: child.data.created,
@@ -43,6 +43,7 @@ class Home extends React.Component {
           visited: child.data.visited
         }}))
       })
+      .then(res => self.state.refreshing ? self.setState({refreshing: false}) : null)
       .catch(error => console.log('Error dispatching in getAPIdata:', error));
     }
   }
