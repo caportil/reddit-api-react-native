@@ -5,7 +5,7 @@ import { connect, Provider } from 'react-redux';
 
 export default props => {
   return (
-    <TouchableOpacity onPress={() => console.log('TouchableOpacity pressed!')}>
+
       <View>
         <Text>{`${props.idx+1}: ${props.title}`}</Text>
         {props.thumbnail.slice(0,4) !== 'http' ?
@@ -18,6 +18,5 @@ export default props => {
         <Text>{`${new Date(props.created)}`}</Text>
         <Text>{`\n`}</Text>
       </View>
-    </TouchableOpacity>
   )
 }

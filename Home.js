@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, ScrollView, RefreshControl } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import ListItem from './ListItem';
 // import Store from './Store';
 
@@ -58,23 +58,32 @@ class Home extends React.Component {
     console.log('Finished mounting');
   }
 
+  openListView(child, idx) {
+    console.log('openListView invoked!');
+    this.props.navigator.push({screen: 'ListView', child: child, index: idx})
+  }
+
   mapTitles() {
+    let self = this;
     console.log('mapTitles running...')
     return (
       this.props.lists.map((child, idx) => {
         console.log('idx:', idx, 'and child:', child);
         return (
-          <ListItem
-            key={`ListItem${idx}`}
-            idx={idx}
-            title={child.title}
-            thumbnail={child.thumbnail}
-            ups={child.ups}
-            num_comments={child.num_comments}
-            author={child.author}
-            created={child.created}
-            subreddit_name_prefixed={child.subreddit_name_prefixed}
-          ></ListItem>
+          <TouchableOpacity onPress={() => self.openListView(child, idx)} key={`TouchableOpacity${idx}`}>
+            <ListItem
+              key={`ListItem${idx}`}
+              idx={idx}
+              title={child.title}
+              thumbnail={child.thumbnail}
+              ups={child.ups}
+              num_comments={child.num_comments}
+              author={child.author}
+              created={child.created}
+              subreddit_name_prefixed={child.subreddit_name_prefixed}
+            >
+            </ListItem>
+          </TouchableOpacity>
         )
       })
     )

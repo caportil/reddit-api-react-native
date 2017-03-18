@@ -36,9 +36,9 @@ export default class App extends React.Component {
   renderScene(route,nav) {
     switch (route.screen) {
       case "Home":
-        return <Home navigator={nav} />
+        return <Home navigator={nav}/>
       case "ListView":
-        return <ListView navigator={nav} />
+        return <ListView navigator={nav} child={route.child} index={route.index}/>
       }
   }
 
