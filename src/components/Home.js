@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect, Provider } from 'react-redux';
 import { StyleSheet, Text, View, Image, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import ListItem from './ListItem';
+import fetchAPIdata from '../actions/ListsAction';
 
 class Home extends React.Component {
   constructor(props) {
@@ -14,9 +15,18 @@ class Home extends React.Component {
   }
 
   _onRefresh() {
+    let self = this;
     this.setState({refreshing: true});
-    this.props.dispatch(this.getAPIdata())
+    this.props.dispatch(fetchAPIdata(self.props, self.toggleRefreshing.bind(self)));
     // .then(() => this.setState({refreshing: false}););
+  }
+
+  toggleRefreshing() {
+    let self = this;
+    console.log('running toggleRefreshing...')
+    if (self.state.refreshing) {
+      self.setState({refreshing: false});
+    }
   }
 
   getAPIdata() {
@@ -60,7 +70,8 @@ class Home extends React.Component {
     // console.log('about to mount; self.props:', self.props);
     if (!self.props.initialized) {
       console.log('Initial componentWillMount fetch running...')
-      this.props.dispatch(this.getAPIdata());
+      // this.props.dispatch(this.getAPIdata());
+      self.props.dispatch(fetchAPIdata(self.props, self.toggleRefreshing.bind(self)));
     }
   }
 

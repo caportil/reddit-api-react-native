@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export default function getAPIdata(props) {
+export default function fetchAPIdata(props, toggleRefreshing) {
   let self = this;
   return function(dispatch) {
     axios.get('https://www.reddit.com/.json').then(res => {
-      console.log('axios GET complete 2! this.props.initialized:', props.initialized)
+      console.log('axios GET complete 2! props.initialized:', props.initialized);
       res.data.data.children.forEach((child, i) => dispatch({type: 'ADD_LIST', index: i, payload: {
         title: child.data.title,
         author: child.data.author,
@@ -14,7 +14,6 @@ export default function getAPIdata(props) {
         name: child.data.name,
         num_comments: child.data.num_comments,
         permalink: child.data.permalink,
-        // preview: child.data.preview,
         score: child.data.score,
         subreddit: child.data.subreddit,
         subreddit_id: child.data.subreddit_id,
@@ -26,10 +25,9 @@ export default function getAPIdata(props) {
       }}))
     })
     .then(res => {
+      console.log('within listsaction, running then...')
       props.toggleInitialized();
-      if (self.state.refreshing) {
-        self.setState({refreshing: false});
-      }
+      toggleRefreshing();
     })
     .catch(error => console.log('Error dispatching in getAPIdata:', error));
   }

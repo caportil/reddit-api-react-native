@@ -18,6 +18,7 @@ export default class App extends React.Component {
 
   toggleInitialized() {
     let self = this;
+    console.log('running toggleInitialized...')
     self.setState({initialized: true})
   }
 
