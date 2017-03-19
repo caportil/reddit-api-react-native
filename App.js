@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import thunk from 'redux-thunk';
-import { Text, View, Navigator, AsyncStorage } from 'react-native';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { connect, Provider } from 'react-redux';
+import { Navigator, AsyncStorage } from 'react-native';
+import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import Home from './src/components/Home';
 import ListView from './src/components/ListView';
