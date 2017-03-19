@@ -1,9 +1,16 @@
 *Instructions*
+
+To run on Android emulator:
+1. Android .apk available at https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40caportil%2Freddit-api-react-native-2cfd1664-0c8f-11e7-87e8-0a580a443b04-signed.apk
+
+To run on Expo:
 1. Clone repo and run 'npm install'
-2. Open in simulator (if using Expo, set Host to localhost)
-3. Reddit home page listings will populate on landing/home page; tap individual listing to navigate to new screen
-4. Tap on 'Return to Home' (or Reddit logo) to return
-5. Pull down from home page to refresh (fetches new data from Reddit API)
+2. Open as new project in Expo and run in simulator (set Host to localhost, disable Development mode for optimal performance)
+
+
+*Reddit home page listings will populate on landing/home page; tap individual listing to navigate to new screen
+*Tap on 'Return to Home' (or Reddit logo) to return
+*Pull down from home page to refresh (fetches new data from Reddit API)
 
 Happy Redditing!
 
