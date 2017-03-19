@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import { connect, Provider } from 'react-redux';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 export default props => {
   return (

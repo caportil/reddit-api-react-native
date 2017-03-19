@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect, Provider } from 'react-redux';
 import axios from 'axios';
+import { connect, Provider } from 'react-redux';
 import { StyleSheet, Text, View, Image, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import ListItem from './ListItem';
-// import Store from './Store';
 
 class Home extends React.Component {
   constructor(props) {
