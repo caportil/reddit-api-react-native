@@ -1,12 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import thunk from 'redux-thunk';
-import { StyleSheet, Text, View, Navigator } from 'react-native';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import { Text, View, Navigator, AsyncStorage } from 'react-native';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
+import { persistStore } from 'redux-persist';
 import Home from './src/components/Home';
 import ListView from './src/components/ListView';
 import store from './src/Store'
+
+persistStore(store, {storage: AsyncStorage}, () => console.log('restored within persistStore!'));
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,23 +20,19 @@ export default class App extends React.Component {
   }
 
   toggleInitialized() {
-    let self = this;
-    console.log('running toggleInitialized...')
-    self.setState({initialized: true})
+    this.setState({initialized: true})
   }
 
   renderScene(route,nav) {
-    let self = this;
     switch (route.screen) {
       case "Home":
-        return <Home navigator={nav} initialized={self.state.initialized} toggleInitialized={this.toggleInitialized.bind(this)}/>
+        return <Home navigator={nav} initialized={this.state.initialized} toggleInitialized={this.toggleInitialized.bind(this)}/>
       case "ListView":
         return <ListView navigator={nav} child={route.child} index={route.index}/>
       }
   }
 
   render() {
-    let self = this;
     return (
       <Provider store={store}>
         <Navigator

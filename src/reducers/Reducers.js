@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import {persistStore, autoRehydrate} from 'redux-persist';
 
 const listReducer = (state = [], action) => {
   if (action.type === 'ADD_LIST') {
