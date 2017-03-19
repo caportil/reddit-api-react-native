@@ -1,3 +1,14 @@
+*Instructions*
+1. Clone repo and run 'npm install'
+2. Open in simulator (if using Expo, set Host to localhost)
+3. Reddit home page listings will populate on landing/home page; tap individual listing to navigate to new screen
+4. Tap on 'Return to Home' (or Reddit logo) to return
+5. Pull down from home page to refresh (fetches new data from Reddit API)
+
+Happy Redditing!
+
+***
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
