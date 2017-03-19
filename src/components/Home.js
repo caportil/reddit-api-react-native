@@ -16,9 +16,8 @@ class Home extends React.Component {
 
   _onRefresh() {
     let self = this;
-    this.setState({refreshing: true});
-    this.props.dispatch(fetchAPIdata(self.props, self.toggleRefreshing.bind(self)));
-    // .then(() => this.setState({refreshing: false}););
+    self.setState({refreshing: true});
+    self.props.dispatch(fetchAPIdata(self.props, self.toggleRefreshing.bind(self)));
   }
 
   toggleRefreshing() {
@@ -29,48 +28,12 @@ class Home extends React.Component {
     }
   }
 
-  getAPIdata() {
-    let self = this;
-    return function(dispatch) {
-      axios.get('https://www.reddit.com/.json').then(res => {
-        console.log('axios GET complete 2! this.props.initialized:', self.props.initialized)
-        res.data.data.children.forEach((child, i) => dispatch({type: 'ADD_LIST', index: i, payload: {
-          title: child.data.title,
-          author: child.data.author,
-          created: child.data.created,
-          domain: child.data.domain,
-          id: child.data.id,
-          name: child.data.name,
-          num_comments: child.data.num_comments,
-          permalink: child.data.permalink,
-          // preview: child.data.preview,
-          score: child.data.score,
-          subreddit: child.data.subreddit,
-          subreddit_id: child.data.subreddit_id,
-          subreddit_name_prefixed: child.data.subreddit_name_prefixed,
-          thumbnail: child.data.thumbnail,
-          ups: child.data.ups,
-          url: child.data.url,
-          visited: child.data.visited
-        }}))
-      })
-      .then(res => {
-        self.props.toggleInitialized();
-        if (self.state.refreshing) {
-          self.setState({refreshing: false});
-        }
-      })
-      .catch(error => console.log('Error dispatching in getAPIdata:', error));
-    }
-  }
 
   componentWillMount() {
     let self = this;
     console.log('running componentWillMount... self.props.initialized:', self.props.initialized);
-    // console.log('about to mount; self.props:', self.props);
     if (!self.props.initialized) {
       console.log('Initial componentWillMount fetch running...')
-      // this.props.dispatch(this.getAPIdata());
       self.props.dispatch(fetchAPIdata(self.props, self.toggleRefreshing.bind(self)));
     }
   }
@@ -86,10 +49,8 @@ class Home extends React.Component {
 
   mapTitles() {
     let self = this;
-    // console.log('mapTitles running...')
     return (
       this.props.lists.map((child, idx) => {
-        // console.log('idx:', idx, 'and child:', child);
         return (
           <TouchableOpacity onPress={() => self.openListView(child, idx)} key={`TouchableOpacity${idx}`}>
             <ListItem
@@ -112,13 +73,12 @@ class Home extends React.Component {
 
   render() {
     let self = this;
-    // console.log('Test log');
     return (
       <ScrollView 
         refreshControl={
           <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
+            refreshing={self.state.refreshing}
+            onRefresh={self._onRefresh.bind(self)}
           />
         }
       >
