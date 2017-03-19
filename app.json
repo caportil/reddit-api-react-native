@@ -5,6 +5,9 @@
       "assetExts": [
         "ttf"
       ]
+    },
+    "android": {
+      "package": "org.rnplay.exp",
     }
   }
 }
