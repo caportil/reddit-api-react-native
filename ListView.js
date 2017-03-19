@@ -16,8 +16,8 @@ export default props => {
       <Text>{`submitted by ${props.child.author} to ${props.child.subreddit_name_prefixed}`}</Text>
       <Text>{`${new Date(props.child.created)}`}</Text>
       <Text>{`\n`}</Text>
-
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => props.navigator.push({screen: 'Home'})}>
+        <Text>{`Return to Home`}</Text>
         <Image source={{uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Reddit_logo_and_wordmark.svg/1280px-Reddit_logo_and_wordmark.svg.png'}} style={{height: 100, width: 300}}/>
       </TouchableOpacity>
     </View>

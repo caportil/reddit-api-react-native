@@ -33,10 +33,23 @@ const store = createStore(reducers, middleware);
   // .then(res => console.log('Finished running axios.get; store.lists[0]:', store.getState().lists[0]));
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialized: false,
+    };
+  }
+
+  toggleInitialized() {
+    let self = this;
+    self.setState({initialized: true})
+  }
+
   renderScene(route,nav) {
+    let self = this;
     switch (route.screen) {
       case "Home":
-        return <Home navigator={nav}/>
+        return <Home navigator={nav} initialized={self.state.initialized} toggleInitialized={this.toggleInitialized.bind(this)}/>
       case "ListView":
         return <ListView navigator={nav} child={route.child} index={route.index}/>
       }
@@ -44,7 +57,6 @@ export default class App extends React.Component {
 
   render() {
     let self = this;
-    console.log('Test logz');
     return (
       <Provider store={store}>
         <Navigator

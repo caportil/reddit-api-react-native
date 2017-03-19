@@ -10,6 +10,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       refreshing: false,
+      initialized: false,
     };
   }
 
@@ -23,6 +24,7 @@ class Home extends React.Component {
     let self = this;
     return function(dispatch) {
       axios.get('https://www.reddit.com/.json').then(res => {
+        console.log('axios GET complete 2! this.props.initialized:', self.props.initialized)
         res.data.data.children.forEach((child, i) => dispatch({type: 'ADD_LIST', index: i, payload: {
           title: child.data.title,
           author: child.data.author,
@@ -43,15 +45,24 @@ class Home extends React.Component {
           visited: child.data.visited
         }}))
       })
-      .then(res => self.state.refreshing ? self.setState({refreshing: false}) : null)
+      .then(res => {
+        self.props.toggleInitialized();
+        if (self.state.refreshing) {
+          self.setState({refreshing: false});
+        }
+      })
       .catch(error => console.log('Error dispatching in getAPIdata:', error));
     }
   }
 
   componentWillMount() {
     let self = this;
-    console.log('about to mount; self.props:', self.props);
-    this.props.dispatch(this.getAPIdata());
+    console.log('running componentWillMount... self.props.initialized:', self.props.initialized);
+    // console.log('about to mount; self.props:', self.props);
+    if (!self.props.initialized) {
+      console.log('Initial componentWillMount fetch running...')
+      this.props.dispatch(this.getAPIdata());
+    }
   }
 
   componentDidMount() {
@@ -65,10 +76,10 @@ class Home extends React.Component {
 
   mapTitles() {
     let self = this;
-    console.log('mapTitles running...')
+    // console.log('mapTitles running...')
     return (
       this.props.lists.map((child, idx) => {
-        console.log('idx:', idx, 'and child:', child);
+        // console.log('idx:', idx, 'and child:', child);
         return (
           <TouchableOpacity onPress={() => self.openListView(child, idx)} key={`TouchableOpacity${idx}`}>
             <ListItem
@@ -91,7 +102,7 @@ class Home extends React.Component {
 
   render() {
     let self = this;
-    console.log('Test log');
+    // console.log('Test log');
     return (
       <ScrollView 
         refreshControl={
