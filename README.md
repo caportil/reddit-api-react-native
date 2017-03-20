@@ -1,7 +1,7 @@
 *Instructions*
 
 To run on Android emulator:
-1. Android .apk available at https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40caportil%2Freddit-api-react-native-2cfd1664-0c8f-11e7-87e8-0a580a443b04-signed.apk
+1. Android .apk available at https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40caportil%2Freddit-api-react-native-43265f59-0d20-11e7-85c2-0a580a443c13-signed.apk
 
 To run on Expo:
 1. Clone repo and run 'npm install'
